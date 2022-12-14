@@ -50,29 +50,33 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script lang="ts">
+import type { ShowInterface } from '@/model'
+import { defineComponent, type PropType } from 'vue'
+
 export default defineComponent({
   props: {
     show: {
-      type: Object,
+      type: Object as PropType<ShowInterface>,
       required: true,
     },
   },
-  emits: ['toggle-favorite'],
+  emits: {
+    'toggle-favorite': (show: ShowInterface) => !!show,
+  },
   computed: {
-    titleFavorite() {
+    titleFavorite(): string {
       return `${this.show.title} is${
         this.show.user.favorited ? '' : ' not'
       } your favorite!`
     },
-    statusIsContinuing() {
+    statusIsContinuing(): boolean {
       return this.show.status === 'Continuing'
     },
   },
   methods: {
-    toggleFavorite() {
-      this.$emit('toggle-favorite')
+    toggleFavorite(): void {
+      this.$emit('toggle-favorite', this.show)
     },
   },
 })

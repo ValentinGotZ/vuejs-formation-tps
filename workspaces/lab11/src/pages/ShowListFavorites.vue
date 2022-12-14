@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import CardShow from '@/components/CardShow.vue'
 import { mapActions, mapState } from 'pinia'

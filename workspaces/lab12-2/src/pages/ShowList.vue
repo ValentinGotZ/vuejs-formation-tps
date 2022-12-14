@@ -9,40 +9,24 @@
           type="text"
           data-cy="search"
           placeholder="Game of Thrones, Breaking Bad, ..."
-          v-model.lazy="searchTerm"
+          v-model.lazy="store.searchTerm"
           v-focus
         />
       </div>
     </div>
     <CardShow
-      v-for="show of filteredShows"
+      v-for="show of store.filteredShows"
       :key="show.id"
       :show="show"
-      @toggle-favorite="toggleFavorite(show.id)"
+      @toggle-favorite="store.toggleFavorite(show.id)"
     />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { mapActions, mapState, mapWritableState } from 'pinia'
-
+<script setup lang="ts">
 import CardShow from '@/components/CardShow.vue'
 import { useStore } from '@/store'
 
-export default defineComponent({
-  components: {
-    CardShow,
-  },
-  data: () => ({
-    title: 'My TV shows',
-  }),
-  computed: {
-    ...mapState(useStore, ['filteredShows']),
-    ...mapWritableState(useStore, ['searchTerm']),
-  },
-  methods: {
-    ...mapActions(useStore, ['toggleFavorite']),
-  },
-})
+const title = 'My TV Shows'
+const store = useStore()
 </script>

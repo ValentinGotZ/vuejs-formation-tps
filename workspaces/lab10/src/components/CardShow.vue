@@ -2,12 +2,23 @@
   <div class="card card-result">
     <div class="card-header">
       <p class="card-header-title">
-        <router-link :to="{ name: 'showDetail', params: { showId: show.id } }">
+        <router-link
+          :to="{ name: 'showDetail', params: { showId: show.id } }"
+          data-testid="title"
+        >
           {{ titleFavorite }}
         </router-link>
       </p>
-      <a class="card-header-icon" @click="toggleFavorite()">
-        <span class="icon" :class="{ 'is-favorite': show.user.favorited }">
+      <a
+        class="card-header-icon"
+        @click="toggleFavorite()"
+        aria-label="Toggle favorite"
+      >
+        <span
+          class="icon"
+          :class="{ 'is-favorite': show.user.favorited }"
+          data-testid="favoriteIcon"
+        >
           <i class="fa fa-star"></i>
         </span>
       </a>
@@ -31,6 +42,7 @@
           <p class="tags">
             <span
               class="tag"
+              data-testid="statusTag"
               :class="[statusIsContinuing ? 'is-warning' : 'is-danger']"
             >
               {{ show.status }}
@@ -59,7 +71,7 @@ export default defineComponent({
     titleFavorite() {
       return `${this.show.title} is ${
         this.show.user.favorited ? '' : 'not '
-      } your favorite!`
+      }your favorite!`
     },
     statusIsContinuing() {
       return this.show.status === 'Continuing'

@@ -1,9 +1,14 @@
 import { defineStore } from 'pinia'
-
 import { API } from '@/api'
+import type { ShowInterface } from '@/model'
+
+export interface MainState {
+  shows: ShowInterface[]
+  searchTerm: string
+}
 
 export const useStore = defineStore('main', {
-  state: () => {
+  state: (): MainState => {
     return {
       shows: [],
       searchTerm: '',
@@ -21,7 +26,7 @@ export const useStore = defineStore('main', {
       const { data } = await API.get('/shows')
       this.shows = data
     },
-    async toggleFavorite(showId) {
+    async toggleFavorite(showId: number) {
       const show = this.shows.find((s) => s.id === showId)
       if (!show) {
         console.error('there is no show matching this ID')
